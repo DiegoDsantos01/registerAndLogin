@@ -4,11 +4,12 @@ from tkinter import ttk
 
 # Janela de Acesso
 window = Tk()
-window.title("DS Systems - Acess Panel")
+window.title("DBZ Systems - Acess Panel")
 window.geometry("600x300")
 window.configure(background="white")
 window.resizable(width=False, height=False) # Pra não ser possível alterar o tamanho da janela
 window.attributes("-alpha", 0.9)
+window.iconbitmap(default="icons/iconEsfera.ico")
 
 
 # Carregar Logotipo
@@ -30,21 +31,59 @@ LogoLabel.place(x=60, y=100)
 UserLabel = Label(RightFrame, text="Usuário:", font=("Century Gothic", 20), bg="DarkOrange", fg="White")
 UserLabel.place (x=5, y=100)
 
-UserEntry = ttk.Entry(RightFrame, width=30)
-UserEntry.place(x=150, y=112)
+UserEntry = ttk.Entry(RightFrame, width=38)
+UserEntry.place(x=112, y=112)
 
 PassLabel = Label(RightFrame, text="Senha:", font=("Century Gothic", 20), bg="DarkOrange", fg="White")
 PassLabel.place (x=5, y=150)
 
-PassEntry = ttk.Entry(RightFrame, width=30)
-PassEntry.place(x=150, y=162)
+PassEntry = ttk.Entry(RightFrame, width=40, show="•")
+PassEntry.place(x=100, y=162)
 
 # Botões de Acesso
 
 LoginButton = ttk.Button(RightFrame, text="Login", width=30)
 LoginButton.place(x=100, y=225)
 
-RegisterButton = ttk.Button(RightFrame, text="Cadastre-se", width=20)
+def Register():
+    #Removendo os widgets de Login
+    LoginButton.place(x=5000)
+    RegisterButton.place(x=5000)
+
+    #Inserindo os widgets de Cadastro
+    NameLabel = Label(RightFrame, text="Nome:", font=("Century Gothic", 20), bg="DarkOrange", fg="White")
+    NameLabel.place(x=5, y=5)
+
+    NameEntry = Entry(RightFrame, width=40)
+    NameEntry.place(x=100, y=18)
+
+    EmailLabel = Label(RightFrame, text="E-mail:",  font=("Century Gothic", 20), bg="DarkOrange", fg="White")
+    EmailLabel.place(x=5, y=55)
+
+    EmailEntry = Entry(RightFrame, width=40)
+    EmailEntry.place(x=100, y=68)
+
+    Register = ttk.Button(RightFrame, text="Cadastrar", width=30)
+    Register.place(x=100, y=225)
+
+    def BackToLogin():
+        #Remover os Widgets de Cadastro
+        NameLabel.place(x=5000)
+        NameEntry.place(x=5000)
+        EmailLabel.place(x=5000)
+        EmailEntry.place(x=5000)
+        Register.place(x=5000)
+        Back.place(x=5000)
+        
+        #Trazendo os widgets de Login
+        LoginButton.place(x=100)
+        RegisterButton.place(x=125)
+
+    Back = ttk.Button(RightFrame, text="Voltar", width=20, command=BackToLogin)
+    Back.place(x=125, y=260)
+
+
+RegisterButton = ttk.Button(RightFrame, text="Cadastre-se", width=20, command=Register)
 RegisterButton.place(x=130, y=260)
 
 window.mainloop()
