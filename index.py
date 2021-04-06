@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+import DataBaser
 
 # Janela de Acesso
 window = Tk()
@@ -54,16 +55,29 @@ def Register():
     NameLabel = Label(RightFrame, text="Nome:", font=("Century Gothic", 20), bg="DarkOrange", fg="White")
     NameLabel.place(x=5, y=5)
 
-    NameEntry = Entry(RightFrame, width=40)
+    NameEntry = ttk.Entry(RightFrame, width=40)
     NameEntry.place(x=100, y=18)
 
     EmailLabel = Label(RightFrame, text="E-mail:",  font=("Century Gothic", 20), bg="DarkOrange", fg="White")
     EmailLabel.place(x=5, y=55)
 
-    EmailEntry = Entry(RightFrame, width=40)
+    EmailEntry = ttk.Entry(RightFrame, width=40)
     EmailEntry.place(x=100, y=68)
 
-    Register = ttk.Button(RightFrame, text="Cadastrar", width=30)
+# Conectando ao Banco de Dados
+
+    def RegisterToDataBase():
+        Name = NameEntry.get()
+        Email = EmailEntry.get()
+        User = UserEntry.get()
+        Pass = PassEntry.get()
+        DataBaser.cursor.execute("""
+        INSERT INTO Users(Name, Email, User, Password) VALUES(?, ?, ?, ?)
+        """,(Name, Email, User, Pass))
+        DataBaser.connection.commit()
+        messagebox.showinfo(title="Register Info", message="Cadastro Realizado com Sucesso")
+
+    Register = ttk.Button(RightFrame, text="Cadastrar", width=30, command=RegisterToDataBase)
     Register.place(x=100, y=225)
 
     def BackToLogin():
